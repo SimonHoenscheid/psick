@@ -1,0 +1,93 @@
+HOSTS:
+  CentOS-7-docker:
+    platform: el-7-x86_64
+    hypervisor: docker
+    image: centos:centos7
+    docker_preserve_image: true
+    mount_folders:
+      controlrepo:
+        host_path: .
+        container_path: /tmp/production
+        opts: ro
+    docker_cmd: '["/usr/sbin/init"]'
+    docker_image_commands:
+      - 'yum -y swap -- remove fakesystemd -- install systemd systemd-libs'
+      - 'yum -y install crontabs tar ss wget openssl sysvinit-tools iproute which initscripts'
+      - 'yum -y update; yum clean all; yum makecache'
+      - 'systemctl mask getty@tty1.service'
+  puppet.foss.psick.io:
+    roles:
+      - agent
+    type: aio
+    platform: el-7-64
+    box: puppetlabs/centos-7.0-64-puppet
+    box_url: https://s3.amazonaws.com/puppetlabs-vagrantcloud/centos-7.0-x86_64-virtualbox-puppet-1.0.2.box
+    hypervisor: vagrant_virtualbox
+  CentOS-6.6:
+    roles:
+      - agent
+    type: aio
+    platform: el-6-64
+    box: puppetlabs/centos-6.6-64-puppet
+    box_url: https://s3.amazonaws.com/puppetlabs-vagrantcloud/centos-6.6-x86_64-virtualbox-puppet-1.0.2.box
+    hypervisor: vagrant_virtualbox
+  CentOS-7.0:
+    roles:
+      - agent
+    type: aio
+    platform: el-7-64
+    box: puppetlabs/centos-7.0-64-puppet
+    box_url: https://s3.amazonaws.com/puppetlabs-vagrantcloud/centos-7.0-x86_64-virtualbox-puppet-1.0.2.box
+    hypervisor: vagrant_virtualbox
+  Debian-7.8:
+    roles:
+      - agent
+    type: aio
+    platform: debian-7.8-64
+    box: puppetlabs/Debian-7.8-64-puppet
+    box_url: https://s3.amazonaws.com/puppetlabs-vagrantcloud/debian-7.8-x86_64-virtualbox-puppet-1.0.3.box
+    hypervisor: vagrant_virtualbox
+  Debian-9:
+    roles:
+      - agent
+    type: foss
+    platform: debian-9.0-64
+    box: debian/stretch64
+  Ubuntu-16.04:
+    roles:
+      - agent
+  Ubuntu-16.04:
+    roles:
+      - agent
+    type: aio
+    platform: ubuntu-16.04-64
+    box: puppetlabs/ubuntu-16.04-64-puppet
+    # box_url: https://s3.amazonaws.com/puppetlabs-vagrantcloud/ubuntu-16.04-x86_64-virtualbox-puppet-1.0.2.box
+    hypervisor: vagrant_virtualbox
+  Ubuntu-14.04:
+    roles:
+      - agent
+    type: aio
+    platform: ubuntu-14.04-64
+    box: puppetlabs/ubuntu-14.04-64-puppet
+    box_url: https://s3.amazonaws.com/puppetlabs-vagrantcloud/ubuntu-14.04-x86_64-virtualbox-puppet-1.0.2.box
+    hypervisor: vagrant_virtualbox
+  Windows_Server-2008r2:
+    roles:
+      - agent
+    type: aio
+    platform: windows-2008-64
+    box: opentable/win-2008r2-standard-amd64-nocm
+    hypervisor: vagrant_virtualbox
+  Windows_Server-2012r2:
+    roles:
+      - agent
+    type: aio
+    platform: windows-2012-64
+    box: opentable/win-2012r2-standard-amd64-nocm
+#    box_url: URL goes here
+    hypervisor: vagrant_virtualbox
+
+CONFIG:
+  type: aio
+  hypervisor: vagrant_virtualbox

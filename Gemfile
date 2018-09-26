@@ -165,4 +165,7 @@ group :documentation do
   gem 'rgen'
 end
 
+# Onceover
+gem 'onceover'
+
 # vim: syntax=ruby

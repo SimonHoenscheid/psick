@@ -1,6 +1,11 @@
 require 'beaker-rspec'
+require 'beaker-rspec/spec_helper'
 require 'beaker-hiera'
+require 'beaker-puppet'
 require 'beaker/puppet_install_helper'
+require 'beaker/module_install_helper'
+require 'beaker-task-helper'
+
 begin
   require 'puppet'
 rescue TypeError
